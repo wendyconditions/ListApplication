@@ -1,0 +1,15 @@
+﻿[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+    display: none !important;
+}
+
+.backgroundRed {
+    background-color: #ffafaf;
+}
+
+.backgroundGreen {
+    background-color: #c2ffcc;
+}
+
+.backgroundYellow {
+    background-color: #ffffb3;
+}
