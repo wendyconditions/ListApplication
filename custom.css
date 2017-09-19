@@ -13,3 +13,19 @@
 .backgroundYellow {
     background-color: #ffffb3;
 }
+
+.fancy-radio-group .btn-fancy-radio img {
+    display: none;
+}
+
+.fancy-radio-group .btn-fancy-radio .normal {
+    display: block;
+}
+
+.fancy-radio-group .btn-fancy-radio.active .normal {
+    display: none;
+}
+
+.fancy-radio-group .btn-fancy-radio.active .checked {
+    display: block;
+}
