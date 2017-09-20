@@ -1,21 +1,59 @@
 ﻿<div class="row">
-    <div class="col-sm-12 well" ng-repeat="item in vm.items | orderBy: ['priority','dateCreated']"
-         ng-class="{backgroundRed: item.priority === 1, backgroundGreen: item.priority === 2, backgroundYellow: item.priority ===3}"
-         ng-if="!item.dateCompleted">
-        <div class="col-sm-6">
-            <label class="btn btn-success">
-                <input type="checkbox" ng-model="item.isComplete" autocomplete="off">
-                <span class="glyphicon glyphicon-ok"></span>
-            </label>
-            &nbsp;
-            {{item.toDoItem}}
-        </div>
-        <div class="col-sm-3">
-            {{item.dateCreated | date}}
-        </div>
-        <div class="col-sm-3 pull-right">
-            Update and delete
-        </div>
+    <div class="col-sm-12">
+        <form name="myForm">
+            <div class="form-group">
+                <label for="task">Task</label>
+                <input type="text" ng-model="vm.data.toDoItem" class="form-control" id="task" placeholder="Enter new task">
+            </div>
+            <div class="btn-group btn-group-justified fancy-radio-group">
+                <label class="btn btn-danger btn-fancy-radio text-xs text-no-transform clearfix">
+                    <input type="radio" ng-model="vm.data.priority" class="hidden" value="1">High
+                </label>
+                <label class="btn btn-success btn-fancy-radio text-xs text-no-transform clearfix">
+                    <input type="radio" ng-model="vm.data.priority" class="hidden" value="2">Med
+                </label>
+                <label class="btn btn-warning btn-fancy-radio text-xs text-no-transform clearfix">
+                    <input type="radio" ng-model="vm.data.priority" class="hidden" value="3">Low
+                </label>
+            </div>
+            <br />
+            <button type="submit" class="btn btn-default" ng-click="vm.btnAdd(vm.data)">Add</button>
+            <br /><br />
+        </form>
+    </div>
+</div>
+
+<div class="row text-center">
+    <h2>Current Tasks</h2>
+</div>
+<div class="row">
+    <div class="col-sm-12 well">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th class="col-md-1">Completed</th>
+                    <th class="col-md-9">Task</th>
+                    <th class="col-md-3">Modify</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="item in vm.items | orderBy: ['priority','dateCreated']"
+                    ng-class="{backgroundRed: item.priority === 1, backgroundGreen: item.priority === 2, backgroundYellow: item.priority ===3}"
+                    ng-if="!item.dateCompleted">
+                    <td>
+                        <label class="btn btn-success pull-left">
+                            <input type="checkbox" ng-model="item.isComplete" autocomplete="off">
+                            <span class="glyphicon glyphicon-ok"></span>
+                        </label>
+                    <pre>{{item | json}}</pre>
+                    </td>
+                    <td>{{item.toDoItem}}</td>
+                    <td>
+                        <a ng-click="vm.btnUpdate(item)">Update</a>                  
+                    </td>
+                </tr>
+            </tbody>
+        </table>
     </div>
     <div class="row">
         <button type="submit" class="btn btn-danger pull-right" ng-click="vm.btnComplete(vm.items)">Completed</button>

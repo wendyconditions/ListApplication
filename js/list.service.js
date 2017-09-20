@@ -12,6 +12,7 @@
             loadList: _getList
             , createItem: _postItem
             , completedTask: _deleteTask
+            , updateTask: _putTask
         };
 
         return service;
@@ -56,6 +57,20 @@
 
         function _deleteTaskError(error) {
             return $q.reject(error);
+        }
+
+        function _putTask(updatedItem) {
+            var settings = {
+                method: "PUT"
+                , url: "/api/lists/" + updatedItem.id
+                , data: updatedItem
+            };
+            return $http(settings)
+                .then(null, _putTaskError);
+        }
+
+        function _putTaskError(error) {
+            return $q.reject(error.data.message);
         }
     }
 })();

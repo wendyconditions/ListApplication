@@ -14,6 +14,7 @@
         vm.name = "Wendy";
         vm.btnAdd = _btnAdd;
         vm.btnComplete = _btnComplete;
+        vm.btnUpdate = _btnUpdate;
 
         /////////////
 
@@ -37,13 +38,17 @@
             vm.items = response;
         }
 
-        function _btnAdd() {
-            listService.createItem(vm.data).then(_addSuccess, null);
+        function _btnAdd(data) {
+            if (vm.data.id) {
+                listService.updateTask(data).then(_taskSuccess, null);
+            } else {
+                listService.createItem(vm.data).then(_taskSuccess, null);
+            }
         }
 
-        function _addSuccess() {
+        function _taskSuccess() {
             _init();
-            console.log("New item created");
+            vm.data = {};
         }
 
         function _btnComplete(data) {
@@ -66,6 +71,16 @@
 
         function _completedError() {
             console.log("error happened soft delete api");
+        }
+
+        function _btnUpdate(item) {
+            console.log(item);
+            vm.data = {
+                toDoItem: item.toDoItem
+                , priority: item.priority
+                , id: item.id
+            };
+            return vm.data;
         }
     }
 })();
