@@ -57,6 +57,5 @@
         function _deleteTaskError(error) {
             return $q.reject(error);
         }
-
     }
 })();

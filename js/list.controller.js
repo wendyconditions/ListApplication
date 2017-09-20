@@ -68,5 +68,4 @@
             console.log("error happened soft delete api");
         }
     }
-
 })();
