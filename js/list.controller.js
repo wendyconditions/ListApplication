@@ -3,55 +3,6 @@
 
     angular
         .module("ToDoList")
-        .factory("listService", listService);
-
-    listService.$inject = ["$http", "$q"];
-
-    function listService($http, $q) {
-        var service = {
-            loadList: _getList
-            , createItem: _postItem
-        };
-
-        return service;
-
-        ////////////
-
-        function _getList() {
-            var settings = {
-                method: "GET"
-                , url: "/api/lists"
-            };
-            return $http(settings)
-                .then(null, _getListError);
-        }
-
-        function _getListError(error) {
-            return $q.reject(error.data.message);
-        }
-
-        function _postItem(item) {
-            var settings = {
-                method: "POST"
-                , url: "/api/lists/"
-                , data: item
-            };
-            return $http(settings)
-                .then(null, _postItemError)
-        }
-
-        function _postItemError(error) {
-            return $q.reject(error);
-        }
-
-    }
-})();
-
-(function () {
-    "use strict";
-
-    angular
-        .module("ToDoList")
         .controller("listController", listController);
 
     listController.$inject = ["listService"];
@@ -62,7 +13,9 @@
         vm.data = {};
         vm.name = "Wendy";
         vm.btnAdd = _btnAdd;
+        vm.btnComplete = _btnComplete;
 
+        /////////////
 
         function _init() {
             listService.loadList().then(_loadSuccess);
@@ -82,7 +35,6 @@
                 }
             }
             vm.items = response;
-            
         }
 
         function _btnAdd() {
@@ -92,6 +44,28 @@
         function _addSuccess() {
             _init();
             console.log("New item created");
+        }
+
+        function _btnComplete(data) {
+            console.log(data);
+            var completedItems = [];
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].isComplete) {
+                    completedItems.push(data[i].id);
+                }
+            }
+            console.log(completedItems);
+            listService.completedTask(completedItems).then(_completedSuccess, _completedError);
+        }
+
+        function _completedSuccess() {
+            console.log("soft delted success api");
+            _init();
+        }
+
+        function _completedError() {
+            console.log("error happened soft delete api");
         }
     }
 

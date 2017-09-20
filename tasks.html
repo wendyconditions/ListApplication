@@ -1,0 +1,24 @@
+﻿<div class="row">
+    <div class="col-sm-12 well" ng-repeat="item in vm.items | orderBy: ['priority','dateCreated']"
+         ng-class="{backgroundRed: item.priority === 1, backgroundGreen: item.priority === 2, backgroundYellow: item.priority ===3}"
+         ng-if="!item.dateCompleted">
+        <div class="col-sm-6">
+            <label class="btn btn-success">
+                <input type="checkbox" ng-model="item.isComplete" autocomplete="off">
+                <span class="glyphicon glyphicon-ok"></span>
+            </label>
+            &nbsp;
+            {{item.toDoItem}}
+            <pre>{{item | json}}</pre>
+        </div>
+        <div class="col-sm-3">
+            {{item.dateCreated | date}}
+        </div>
+        <div class="col-sm-3 pull-right">
+            Update and delete
+        </div>
+    </div>
+    <div class="row">
+        <button type="submit" class="btn btn-danger pull-right" ng-click="vm.btnComplete(vm.items)">Completed</button>
+    </div>
+</div>

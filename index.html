@@ -24,8 +24,8 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Active <span class="sr-only">(current)</span></a></li>
-                        <li><a href="#">Completed</a></li>
+                        <li class="active"><a ui-sref="home">Active <span class="sr-only">(current)</span></a></li>
+                        <li><a ui-sref="completed">Completed</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filter <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -70,32 +70,36 @@
         <!--End form-->
         <!--Begin list-->
         <div class="row">
-            <div class="col-sm-12 well" ng-repeat="item in vm.items | orderBy: ['priority','dateCreated']" ng-class="{backgroundRed: item.priority === 1, backgroundGreen: item.priority === 2, backgroundYellow: item.priority ===3}">
-                <ul>
-                    <li>{{item.toDoItem}} {{item.dateCreated | date}}</li>
-                </ul>
+            <div class="col-sm-6 bg-info">
+                Get it done
+            </div>
+            <div class="col-sm-3 bg-warning">
+                Created on
+            </div>
+            <div class="col-sm-3 bg-success">
+                Modify
             </div>
         </div>
-        <!--End list-->
+        <!--Check out that view-->
+        <ui-view></ui-view>
+        <!--End List-->
     </div>
     <!--End container-->
+
     <!--Vendors-->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
             crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
     <script src="../Scripts/angular.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
+
     <!--End Vendors-->
     <!--App Instantiation-->
-    <script type="text/javascript">
-
-        (function () {
-            angular
-                .module("ToDoList", []);
-        })();
-    </script>
+    <script src="toDoList.module.js"></script>
     <!--Custom Js-->
-    <script src="toDoList.js"></script>
+    <script src="list.service.js"></script>
+    <script src="list.controller.js"></script>
+    <script src="toDoList.route-config.js"></script>
 </body>
 </html>
