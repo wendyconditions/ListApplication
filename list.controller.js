@@ -11,7 +11,7 @@
         var vm = this;
         vm.$onInit = _init;
         vm.data = {};
-        vm.name = "Wendy";
+        vm.name = "Wendy"; // Hard coded for now until I generate users
         vm.btnAdd = _btnAdd;
         vm.btnComplete = _btnComplete;
         vm.btnUpdate = _btnUpdate;
