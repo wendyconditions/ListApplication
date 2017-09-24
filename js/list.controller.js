@@ -11,10 +11,11 @@
         var vm = this;
         vm.$onInit = _init;
         vm.data = {};
-        vm.name = "Wendy";
+        vm.name = "Wendy"; // Hard coding until I generate users
         vm.btnAdd = _btnAdd;
         vm.btnComplete = _btnComplete;
         vm.btnUpdate = _btnUpdate;
+        vm.btnDelete = _btnDelete;
 
         /////////////
 
@@ -23,9 +24,7 @@
         }
 
         function _loadSuccess(response) {
-            console.log(response);
             var response = response.data.items
-            console.log(response);
             for (var i = 0; i < response.length; i++) {
                 if (response[i].priority == 1) {
                     vm.backgroundRed = true;
@@ -52,35 +51,40 @@
         }
 
         function _btnComplete(data) {
-            console.log(data);
-            var completedItems = [];
+            var completedItems = { ids: [] };
 
             for (var i = 0; i < data.length; i++) {
                 if (data[i].isComplete) {
-                    completedItems.push(data[i].id);
+                    completedItems.ids.push(data[i].id);  
                 }
             }
-            console.log(completedItems);
             listService.completedTask(completedItems).then(_completedSuccess, _completedError);
         }
 
         function _completedSuccess() {
-            console.log("soft delted success api");
             _init();
         }
 
         function _completedError() {
-            console.log("error happened soft delete api");
+            // Currently in progress
+            console.log("need to handle this error");
         }
 
         function _btnUpdate(item) {
-            console.log(item);
             vm.data = {
                 toDoItem: item.toDoItem
                 , priority: item.priority
                 , id: item.id
             };
             return vm.data;
+        }
+
+        function _btnDelete(id) {
+            listService.deleteTask(id).then(_deleteSuccess, null);
+        }
+
+        function _deleteSuccess() {
+            _init();
         }
     }
 })();

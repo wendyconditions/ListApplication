@@ -11,8 +11,9 @@
         var service = {
             loadList: _getList
             , createItem: _postItem
-            , completedTask: _deleteTask
+            , completedTask: _deleteSoftTask
             , updateTask: _putTask
+            , deleteTask: _deleteHardTask
         };
 
         return service;
@@ -46,16 +47,17 @@
             return $q.reject(error);
         }
 
-        function _deleteTask(id) {
+        function _deleteSoftTask(ids) {
             var settings = {
-                method: "DELETE"
-                , url: "/api/lists/" + id
+                method: "POST"
+                , url: "/api/lists/soft"
+                , data: ids
             };
             return $http(settings)
-                .then(null, _deleteTaskError);
+                .then(null, _deleteSoftTaskError);
         }
 
-        function _deleteTaskError(error) {
+        function _deleteSoftTaskError(error) {
             return $q.reject(error);
         }
 
@@ -71,6 +73,19 @@
 
         function _putTaskError(error) {
             return $q.reject(error.data.message);
+        }
+
+        function _deleteHardTask(id) {
+            var settings = {
+                method: "DELETE"
+                , url: "/api/lists/hard/" + id
+            };
+            return $http(settings)
+                .then(null, _deleteHardTaskError);
+        }
+
+        function _deleteHardTaskError(error) {
+            $q.reject(error);
         }
     }
 })();

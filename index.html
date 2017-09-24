@@ -20,12 +20,11 @@
                     </button>
                     <a class="navbar-brand" href="#">{{vm.name}}'s List</a>
                 </div>
-
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a ui-sref="home">Active</a></li>
-                        <li><a ui-sref="completed">Completed</a></li>
+                        <li ui-sref-active="active"><a ui-sref="home">Active</a></li>
+                        <li ui-sref-active="active"><a ui-sref="completed">Completed</a></li>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Filter <span class="caret"></span></a>
                             <ul class="dropdown-menu">
@@ -42,17 +41,10 @@
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
         </nav>
-        <!--Begin form-->
-        
-        <!--End form-->
-        <!--Begin list-->
-       
         <!--Check out that view-->
         <ui-view></ui-view>
-        <!--End List-->
     </div>
     <!--End container-->
-
     <!--Vendors-->
     <script src="https://code.jquery.com/jquery-2.2.4.min.js"
             integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
@@ -60,7 +52,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.js"></script>
     <script src="../Scripts/angular.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/1.0.3/angular-ui-router.js"></script>
-
     <!--End Vendors-->
     <!--App Instantiation-->
     <script src="toDoList.module.js"></script>

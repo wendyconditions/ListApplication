@@ -21,7 +21,13 @@
                     <td>
                         {{item.dateCompleted | date}}
                     </td>
-                    <td>Delete</td>
+                    <td>
+                        <label class="btn btn-danger">
+                            <input type="checkbox" ng-model="item.isDelete" autocomplete="off">
+                        </label>
+                        <pre>{{item | json}}</pre>
+                        <a ng-click="vm.btnDelete(item.id)">Delete</a>
+                    </td>
                 </tr>
             </tbody>
         </table>
