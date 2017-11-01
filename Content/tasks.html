@@ -17,7 +17,6 @@
                     <input type="radio" ng-model="vm.data.priority" class="hidden" value="3">Low
                 </label>
             </div>
-            <!--<pre>{{vm.data | json}}</pre>-->
             <br />
             <button type="submit" class="btn btn-default" ng-click="vm.btnAdd(vm.data)">Add</button>
             <br /><br />
@@ -43,8 +42,9 @@
                     ng-class="{backgroundRed: item.priority === 1, backgroundGreen: item.priority === 2, backgroundYellow: item.priority ===3}"
                     ng-if="!item.dateCompleted">
                     <td>
-                        <label class="btn btn-success pull-left">
-                            <input type="checkbox" ng-model="item.isComplete" autocomplete="off">
+                        <label class="containercheck pull-left">
+                            <input type="checkbox" autocomplete="off" ng-model="item.isComplete">
+                            <span class="checkmark"></span>
                         </label>
                     </td>
                     <td>{{item.toDoItem}}</td>
