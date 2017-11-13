@@ -18,7 +18,7 @@
                 </label>
             </div>
             <br />
-            <button type="submit" class="btn btn-default" ng-click="vm.btnAdd(vm.data)">Add</button>
+            <button type="submit" class="btn btn-default" ng-click="vm.btnAdd(vm.data)">{{vm.data.id ? 'Update' : 'Add'}}</button>
             <br /><br />
         </form>
     </div>
