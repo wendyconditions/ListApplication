@@ -14,9 +14,7 @@ namespace TestingList.Interfaces
         int Insert(ToDoListDomain model);
         void Update(ToDoListDomain model);
         Dictionary<int, DeleteIdsRequest> SoftDelete(DeleteIdsRequest model);
-        //int SoftDelete(DeleteIdsRequest model);
-        void HardDelete(int Id);
-       // int Delete(DeleteIdsRequest model);
-
+        Dictionary<int, DeleteIdsRequest> HardDelete(DeleteIdsRequest model);
+        //void HardDelete(int Id);
     }
 }

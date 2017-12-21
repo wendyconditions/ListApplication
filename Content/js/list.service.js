@@ -75,10 +75,11 @@
             return $q.reject(error.data.message);
         }
 
-        function _deleteHardTask(id) {
+        function _deleteHardTask(ids) {
             var settings = {
-                method: "DELETE"
-                , url: "/api/lists/hard/" + id
+                method: "POST"
+                , url: "/api/lists/hard"
+                , data: ids
             };
             return $http(settings)
                 .then(null, _deleteHardTaskError);

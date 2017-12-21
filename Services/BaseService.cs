@@ -28,25 +28,25 @@ namespace TestingList.Services
             _dataProvider.ExecuteCmd("dbo.ToDoList_SelectAll"
                 , inputParamMapper: null
                 , singleRecordMapper: delegate (IDataReader reader, short set)
-                 {
-                     ToDoListDomain singleItem = new ToDoListDomain();
-                     int startingIndex = 0; //startingOrdinal
+                {
+                    ToDoListDomain singleItem = new ToDoListDomain();
+                    int startingIndex = 0; //startingOrdinal
 
-                     singleItem.Id = reader.GetSafeInt32(startingIndex++);
-                     singleItem.ToDoItem = reader.GetSafeString(startingIndex++);
-                     singleItem.Priority = reader.GetSafeInt32(startingIndex++);
-                     singleItem.DateCreated = reader.GetSafeDateTime(startingIndex++);
-                     singleItem.DateModified = reader.GetSafeUtcDateTimeNullable(startingIndex++);
-                     singleItem.DateCompleted = reader.GetSafeUtcDateTimeNullable(startingIndex++);
+                    singleItem.Id = reader.GetSafeInt32(startingIndex++);
+                    singleItem.ToDoItem = reader.GetSafeString(startingIndex++);
+                    singleItem.Priority = reader.GetSafeInt32(startingIndex++);
+                    singleItem.DateCreated = reader.GetSafeDateTime(startingIndex++);
+                    singleItem.DateModified = reader.GetSafeUtcDateTimeNullable(startingIndex++);
+                    singleItem.DateCompleted = reader.GetSafeUtcDateTimeNullable(startingIndex++);
 
-                     //not going to create list if there's no data / lazy load / if statement
-                     if (list == null)
-                     {
-                         list = new List<ToDoListDomain>();
-                     }
+                    //not going to create list if there's no data / lazy load / if statement
+                    if (list == null)
+                    {
+                        list = new List<ToDoListDomain>();
+                    }
 
-                     list.Add(singleItem);
-                 });
+                    list.Add(singleItem);
+                });
 
             return list;
         }
@@ -85,7 +85,7 @@ namespace TestingList.Services
                    paramCollection.AddWithValue("@Id", model.Id);
                });
         }
- 
+
         public Dictionary<int, DeleteIdsRequest> SoftDelete(DeleteIdsRequest model)
         {
             var results = new Dictionary<int, DeleteIdsRequest>();
@@ -100,13 +100,27 @@ namespace TestingList.Services
             return results;
         }
 
-        public void HardDelete(int Id)
+        public Dictionary<int, DeleteIdsRequest> HardDelete(DeleteIdsRequest model)
         {
-            _dataProvider.ExecuteNonQuery("dbo.ToDoList_Delete"
-              , inputParamMapper: delegate (SqlParameterCollection paramCollection)
-              {
-                  paramCollection.AddWithValue("@Id", Id);
-              });
+            var results = new Dictionary<int, DeleteIdsRequest>();
+
+            _dataProvider.ExecuteNonQuery("dbo.ToDoList_HardDeleteTask",
+                parameters =>
+                {
+                    var ids = parameters.AddWithValue("@Id", new IntIdTable(model.Ids));
+                    ids.SqlDbType = System.Data.SqlDbType.Structured;
+                    ids.TypeName = "dbo.IntIdTable";
+                });
+            return results;
         }
+
+        //public void HardDelete(int Id)
+        //{
+        //    _dataProvider.ExecuteNonQuery("dbo.ToDoList_Delete"
+        //      , inputParamMapper: delegate (SqlParameterCollection paramCollection)
+        //      {
+        //          paramCollection.AddWithValue("@Id", Id);
+        //      });
+        //}
     }
 }

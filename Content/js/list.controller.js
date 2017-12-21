@@ -55,7 +55,7 @@
 
             for (var i = 0; i < data.length; i++) {
                 if (data[i].isComplete) {
-                    completedItems.ids.push(data[i].id);  
+                    completedItems.ids.push(data[i].id);
                 }
             }
             listService.completedTask(completedItems).then(_completedSuccess, _completedError);
@@ -79,8 +79,15 @@
             return vm.data;
         }
 
-        function _btnDelete(id) {
-            listService.deleteTask(id).then(_deleteSuccess, null);
+        function _btnDelete(data) {
+            var deleteItems = { ids: [] };
+
+            for (var i = 0; i < data.length; i++) {
+                if (data[i].isDelete) {
+                    deleteItems.ids.push(data[i].id);
+                }
+            }
+            listService.deleteTask(deleteItems).then(_deleteSuccess, null);
         }
 
         function _deleteSuccess() {

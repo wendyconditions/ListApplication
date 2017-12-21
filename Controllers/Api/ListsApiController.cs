@@ -32,7 +32,7 @@ namespace TestingList.Controllers.Api
             {
                 return Request.CreateErrorResponse(HttpStatusCode.Forbidden, ModelState);
             }
-            
+
             ItemsResponse<ToDoListDomain> Response = new ItemsResponse<ToDoListDomain>();
             Response.Items = listService.GetAll();
             return Request.CreateResponse(HttpStatusCode.OK, Response);
@@ -50,7 +50,7 @@ namespace TestingList.Controllers.Api
                 ItemResponse<int> response = new ItemResponse<int>();
                 response.Item = listService.Insert(model);
                 return Request.CreateResponse(HttpStatusCode.OK, model);
-            }  
+            }
         }
 
         [Route("{id:int}"), HttpPut]
@@ -80,11 +80,12 @@ namespace TestingList.Controllers.Api
             return Request.CreateResponse(HttpStatusCode.OK, model);
         }
 
-        [Route("hard/{id:int}"), HttpDelete]
-        public HttpResponseMessage HardDelete(int Id)
+        [Route("hard"), HttpPost]
+        public HttpResponseMessage HardDelete(DeleteIdsRequest model)
         {
-            listService.HardDelete(Id);
-            return Request.CreateResponse(HttpStatusCode.OK, true);
+            var response = new ItemResponse<Dictionary<int, DeleteIdsRequest>>();
+            response.Item = listService.HardDelete(model);
+            return Request.CreateResponse(HttpStatusCode.OK, model);
         }
     }
 }
