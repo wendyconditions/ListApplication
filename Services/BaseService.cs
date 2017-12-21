@@ -13,7 +13,7 @@ namespace TestingList.Services
 {
     public class BaseService : IListService
     {
-        //delcaring/instaniating dataprovider
+        //declaring/instaniating dataprovider
         private IDataProvider _dataProvider;
 
         public BaseService(IDataProvider dataProvider)
@@ -113,14 +113,5 @@ namespace TestingList.Services
                 });
             return results;
         }
-
-        //public void HardDelete(int Id)
-        //{
-        //    _dataProvider.ExecuteNonQuery("dbo.ToDoList_Delete"
-        //      , inputParamMapper: delegate (SqlParameterCollection paramCollection)
-        //      {
-        //          paramCollection.AddWithValue("@Id", Id);
-        //      });
-        //}
     }
 }
